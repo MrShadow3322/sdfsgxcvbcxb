@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестовый сайт с админ-панелью</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div id="login-page" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Вход в систему</h2>
+        <div class="space-y-4">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Логин</label>
+                <input type="text" id="username" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="admin">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Пароль</label>
+                <input type="password" id="password" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="admin123">
+            </div>
+            <button onclick="handleLogin()" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Войти</button>
+        </div>
+        <p id="error-message" class="text-red-500 text-sm mt-4 hidden">Неверный логин или пароль</p>
+    </div>
+
+    <div id="admin-panel" class="hidden bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <h2 class="text-2xl font-bold mb-6 text-center">Админ-панель</h2>
+        <p class="text-gray-700 mb-4">Добро пожаловать, администратор!</p>
+        <div class="space-y-4">
+            <div class="bg-gray-50 p-4 rounded-md">
+                <h3 class="text-lg font-semibold">Управление контентом</h3>
+                <p class="text-gray-600">Здесь вы можете управлять контентом сайта.</p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-md">
+                <h3 class="text-lg font-semibold">Настройки</h3>
+                <p class="text-gray-600">Настройте параметры сайта.</p>
+            </div>
+            <button onclick="handleLogout()" class="w-full bg-red-500 text-white p-2 rounded-md hover:bg-red-600">Выйти</button>
+        </div>
+    </div>
+
+    <script>
+        const TEST_ADMIN = { username: 'admin', password: 'admin123' };
+
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (username === TEST_ADMIN.username && password === TEST_ADMIN.password) {
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+            } else {
+                errorMessage.classList.remove('hidden');
+            }
+        }
+
+        function handleLogout() {
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('login-page').classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+    </script>
+</body>
+</html>
